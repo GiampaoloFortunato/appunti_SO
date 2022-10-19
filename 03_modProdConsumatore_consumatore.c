@@ -17,7 +17,7 @@ int main(){
     const char *nome = "MEMCOND"; //nome del segmento
     int shm_fd; //descrittore del segmento condiviso
     void *shm_ptr; //puntatore al segmento condiviso
-    
+
     //ACCESSO AL SEGMENTO IN LETTURA
     shm_fd = shm_open(nome, O_RDONLY, 0666);
 

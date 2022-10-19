@@ -15,7 +15,7 @@ int main(){
     const int SIZE = 4096; //dimensione del segmento condiviso
     const char *nome = "MEMCOND"; //nome del segmento
     void *shm_ptr; //puntatore al segmento condiviso
-    
+
     //DATI SCRITTI IN MEMORIA CONDIVISA
     const char *string_0 = "Saluti";
     const char *string_1 = "a tutti!";

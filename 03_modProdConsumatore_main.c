@@ -23,7 +23,7 @@ struct buffer_t{
 void produttore(){
     int i;
     for(i=0; i<N; i++){
-	buffer->id=1;
+	buffer->id=i;
 	strcpy(buffer->text, nome[i]);
 	printf("messaggio scritto: %d %s\n", buffer->id, buffer->text);
 	usleep(200);
