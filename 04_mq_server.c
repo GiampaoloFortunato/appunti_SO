@@ -31,16 +31,17 @@ int main(int argc, char *argv[]){
     qd_server = mq_open(SERVER_QUEUE_NAME, O_RDONLY | O_CREAT, QUEUE_PERMISSIONS, &attr);
     
     while(1){
-	//preleva dalla coda il messaggio più vecchio con più alta priorità
-	mq_receive(qd_server, (char*)&msg_rcv, sizeof(msg_rcv), NULL);
-	printf("Server: messaggio ricevuto dal client:%d, %s \n", msg_rcv.pid, msg_rcv.text);
-	sprintf(client_queue_name, "mq_%d", msg_rcv.pid);
+		//preleva dalla coda il messaggio più vecchio con più alta priorità
+		mq_receive(qd_server, (char*)&msg_rcv, sizeof(msg_rcv), NULL);
+		printf("Server: messaggio ricevuto dal client:%d, %s \n", msg_rcv.pid, msg_rcv.text);
+		sprintf(client_queue_name, "mq_%d", msg_rcv.pid);
 
-	//Invia il messaggio di risposra al client
-	qd_client = mq_open(client_queue_name, O_WRONLY);
-	sprintf(msg_send.text, "Benvenuto client %d, il tuo numero e' %ld", msg_rcv.pid, serial_number);
-	mq_send(qd_client, (const char *)&msg_send, sizeof(msg_send), 0);
-	printf("Server: risposta inviata al client. \n");
-	serial_number++; //incrementa il serial numb
+		//Invia il messaggio di risposra al client
+		qd_client = mq_open(client_queue_name, O_WRONLY);
+		sprintf(msg_send.text, "Benvenuto client %d, il tuo numero e' %ld", msg_rcv.pid, serial_number);
+		
+		mq_send(qd_client, (const char *)&msg_send, sizeof(msg_send), 0);
+		printf("Server: risposta inviata al client. \n");
+		serial_number++; //incrementa il serial numb
 	}
 }
