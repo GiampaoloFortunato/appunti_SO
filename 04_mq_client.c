@@ -22,13 +22,14 @@ int main(int argc, char *argv[]){
     char client_queue_name[16];
     mqd_t qd_server, qd_client; //descrittori code
     //crea coda client per ricevere i messaggi dal server
-    sprintf(client_queue_name, "mq_%d", getpid());
     
     struct mq_attr attr;
     attr.mq_flags = 0;
     attr.mq_maxmsg = MAX_MESSAGES;
     attr.mq_msgsize = sizeof(msg_send);
     attr.mq_curmsgs = 0;
+    
+    sprintf(client_queue_name, "/mq_%d", getpid());
     qd_client = mq_open(client_queue_name, O_CREAT|O_RDONLY, QUEUE_PERMISSIONS, &attr);
     //apre la coda del server per inviare il proprio identificativo (pid)
     qd_server = mq_open(SERVER_QUEUE_NAME, O_WRONLY);
