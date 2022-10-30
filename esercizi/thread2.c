@@ -6,10 +6,10 @@
 
 int n;
 
-void *f(){
+void *f(void *arg){
     int i=0;
     for(i=0;i<n;i++){
-	printf("Numero: %d \n", i);
+	printf("Numero: %d da Thread:%s\n", i, (char*)arg);
     }
     pthread_exit(0);
 }
@@ -23,27 +23,27 @@ void *f2(){
 
 void con_thread_main(){
     pthread_t th1, th2, th3, th4, th5, th6;
-    if(pthread_create(&th1, NULL, f(), "") < 0){
+    if(pthread_create(&th1, NULL, f, "1") < 0){
 	printf("Errore nella creazione del thread 1\n");
 	exit(1);
     }
-    if(pthread_create(&th2, NULL, f(), "") < 0){
+    if(pthread_create(&th2, NULL, f, "2") < 0){
 	printf("Errore nella creazione del thread 2\n");
 	exit(1);
     }
-    if(pthread_create(&th3, NULL, f(), "") < 0){
+    if(pthread_create(&th3, NULL, f, "3") < 0){
 	printf("Errore nella creazione del thread 3\n");
 	exit(1);
     }
-    if(pthread_create(&th4, NULL, f(), "") < 0){
+    if(pthread_create(&th4, NULL, f, "4") < 0){
 	printf("Errore nella creazione del thread 4\n");
 	exit(1);
     }
-    if(pthread_create(&th5, NULL, f(), "") < 0){
+    if(pthread_create(&th5, NULL, f, "5") < 0){
 	printf("Errore nella creazione del thread 4\n");
 	exit(1);
     }
-    if(pthread_create(&th6, NULL, f(), "") < 0){
+    if(pthread_create(&th6, NULL, f, "6") < 0){
 	printf("Errore nella creazione del thread 4\n");
 	exit(1);
     }
@@ -71,17 +71,4 @@ int main(int argc, char *argv[]){
     //senza_thread_main();
 }
 
-/*
-./thread2 500000  0,36s user 0,68s system 97% cpu 1,071 total
-./thread2 500000  1,01s user 2,32s system 97% cpu 3,416 total
-
-./thread2 5000000  3,49s user 7,26s system 96% cpu 11,130 total
-./thread2 5000000  10,07s user 21,04s system 95% cpu 32,692 total
-
-
-./thread2 1000000  0,67s user 1,45s system 96% cpu 2,186 total
-./thread2 1000000  2,75s user 5,86s system 97% cpu 8,806 total
-
-./thread2 1000000  3,92s user 8,32s system 97% cpu 12,574 total
-*/
 
